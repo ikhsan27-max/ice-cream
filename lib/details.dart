@@ -51,7 +51,7 @@ class _DetailsState extends State<Details> {
           {
             'name': productName,
             'image': imageAsset,
-            'quantity': quantity,
+            'quantity': quantity, 
             'price': pricePerItem,
           }
         ],
