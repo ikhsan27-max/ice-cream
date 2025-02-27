@@ -72,7 +72,7 @@ class Settings extends StatelessWidget {
               SizedBox(height: 24),
 
               KolomTeks(
-                judul: 'Passsword',
+                judul: 'Password',
                 icon: Icons.password,
                 label: 'Ganti Password Kamu',
               ),
