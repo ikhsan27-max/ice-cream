@@ -12,9 +12,21 @@ class Menu extends StatefulWidget {
 
 class _MenuState extends State<Menu> {
   List<Map<String, String>> flavors = [
-    {'name': 'Pistachio Chocolate Vanilla', 'image': 'assets/ice cream.png', 'price': 'Rp 20.000'},
-    {'name': 'Cherry Strawberry', 'image': 'assets/ice_cream_pink.png', 'price': 'Rp 20.000'},
-    {'name': 'Double Choc Hazelnut', 'image': 'assets/ice_cream_brown.png', 'price': 'Rp 20.000'},
+    {
+      'name': 'Pistachio Chocolate Vanilla',
+      'image': 'assets/ice cream.png',
+      'price': 'Rp 20.000',
+    },
+    {
+      'name': 'Cherry Strawberry',
+      'image': 'assets/ice_cream_pink.png',
+      'price': 'Rp 20.000',
+    },
+    {
+      'name': 'Double Choc Hazelnut',
+      'image': 'assets/ice_cream_brown.png',
+      'price': 'Rp 20.000',
+    },
   ];
 
   void navigateToDetails(String name, String image, String price) {
@@ -22,7 +34,9 @@ class _MenuState extends State<Menu> {
       context,
       MaterialPageRoute(
         builder: (context) => Details(),
-        settings: RouteSettings(arguments: {'name': name, 'image': image, 'price': price}),
+        settings: RouteSettings(
+          arguments: {'name': name, 'image': image, 'price': price},
+        ),
       ),
     );
   }
@@ -40,15 +54,24 @@ class _MenuState extends State<Menu> {
         elevation: 0,
         title: Text(
           "ice cream",
-          style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+          style: GoogleFonts.poppins(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
         ),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.person, color: Colors.black),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed('/settings');
+          },
         ),
         actions: [
-          IconButton(icon: const Icon(Icons.shopping_cart, color: Colors.black), onPressed: () {}),
+          IconButton(
+            icon: const Icon(Icons.shopping_cart, color: Colors.black),
+            onPressed: () {},
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -66,7 +89,9 @@ class _MenuState extends State<Menu> {
                       decoration: InputDecoration(
                         hintText: "mau nyari apa....",
                         prefixIcon: const Icon(Icons.search),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                         fillColor: Colors.grey.shade200,
                       ),
                       onTap: navigateToProductPage,
@@ -74,7 +99,11 @@ class _MenuState extends State<Menu> {
                   ),
                   const SizedBox(width: 10),
                   IconButton(
-                    icon: const Icon(Icons.notifications, size: 28, color: Color.fromARGB(255, 243, 67, 126)),
+                    icon: const Icon(
+                      Icons.notifications,
+                      size: 28,
+                      color: Color.fromARGB(255, 243, 67, 126),
+                    ),
                     onPressed: () {},
                   ),
                 ],
@@ -97,7 +126,13 @@ class _MenuState extends State<Menu> {
                 ),
               ),
               const SizedBox(height: 20),
-              Text("Most Popular", style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                "Most Popular",
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -112,7 +147,9 @@ class _MenuState extends State<Menu> {
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Card(
                         color: Colors.white,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -127,7 +164,9 @@ class _MenuState extends State<Menu> {
                                     width: 60,
                                     height: 60,
                                     color: Colors.grey[300],
-                                    child: const Icon(Icons.image_not_supported),
+                                    child: const Icon(
+                                      Icons.image_not_supported,
+                                    ),
                                   );
                                 },
                               ),
@@ -138,16 +177,25 @@ class _MenuState extends State<Menu> {
                                   children: [
                                     Text(
                                       name,
-                                      style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold),
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                    const Text("Refreshing delicate taste and melt-in-your-mouth texture."),
+                                    const Text(
+                                      "Refreshing delicate taste and melt-in-your-mouth texture.",
+                                    ),
                                   ],
                                 ),
                               ),
                               const SizedBox(height: 4),
                               Text(
                                 price,
-                                style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.pink),
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.pink,
+                                ),
                               ),
                             ],
                           ),
