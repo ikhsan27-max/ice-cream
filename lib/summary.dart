@@ -28,7 +28,8 @@ class _SummaryState extends State<Summary> {
   }
 
   String formatCurrency(num value) {
-    return NumberFormat.currency(locale: 'id', symbol: 'Rp ', decimalDigits: 0).format(value.toDouble());
+    return NumberFormat.currency(locale: 'id', symbol: 'Rp ', decimalDigits: 0)
+        .format(value.toDouble());
   }
 
   @override
@@ -44,7 +45,8 @@ class _SummaryState extends State<Summary> {
         ),
         title: Text(
           "My Cart",
-          style: GoogleFonts.lora(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
+          style: GoogleFonts.lora(
+              fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
         ),
         centerTitle: true,
       ),
@@ -72,9 +74,11 @@ class _SummaryState extends State<Summary> {
                           ),
                           title: Text(
                             item['name'] ?? "Unknown Item",
-                            style: GoogleFonts.lora(fontSize: 18, fontWeight: FontWeight.bold),
+                            style: GoogleFonts.lora(
+                                fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          subtitle: Text(formatCurrency((item['price'] as num).toDouble())),
+                          subtitle: Text(formatCurrency(
+                              (item['price'] as num).toDouble())),
                         ),
                       );
                     },
@@ -85,85 +89,138 @@ class _SummaryState extends State<Summary> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: GestureDetector(
-              onTap: toggleSheet,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-                height: isExpanded ? 250 : 80,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.pinkAccent,
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 10,
-                      spreadRadius: 2,
-                    ),
-                  ],
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 5,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
+            child: SafeArea(
+              child: GestureDetector(
+                onTap: toggleSheet,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                  height: isExpanded ? 250 : 80, // Pastikan cukup tinggi
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.pinkAccent,
+                    borderRadius:
+                        const BorderRadius.vertical(top: Radius.circular(30)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 10,
+                        spreadRadius: 2,
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    ],
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text("Total", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
-                        Text(
-                          formatCurrency(widget.totalPrice),
-                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    if (isExpanded) ...[
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text("Sub Total", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
-                          Text(
-                            formatCurrency(widget.totalPrice - 5000),
-                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text("Delivery Fee", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
-                          const Text(
-                            "Rp 5.000.,",
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                      const Divider(color: Colors.white),
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.pinkAccent,
-                          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 12),
-                          shape: RoundedRectangleBorder(
+                        Container(
+                          width: 50,
+                          height: 5,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        onPressed: () {},
-                        child: const Text("Checkout", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                      ),
-                    ],
-                  ],
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                "Total",
+                                style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Flexible(
+                              child: Text(
+                                formatCurrency(widget.totalPrice),
+                                style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        if (isExpanded) ...[
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  "Sub Total",
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Flexible(
+                                child: Text(
+                                  formatCurrency(widget.totalPrice - 5000),
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  "Delivery Fee",
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              const Flexible(
+                                child: Text(
+                                  "Rp 5.000.,",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Divider(color: Colors.white),
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: Colors.pinkAccent,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 50, vertical: 12),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            onPressed: () {},
+                            child: const Text("Checkout",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
