@@ -13,10 +13,11 @@ void main() => runApp(MaterialApp(
         "/details": (context) => const Details(),
         "/summary": (context) {
           final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
           return Summary(
-            cartItems: List<Map<String, dynamic>>.from(args['cartItems']),
-            totalQuantity: args['totalQuantity'] as int,
-            totalPrice: args['totalPrice'] as int,
+            cartItems: List<Map<String, dynamic>>.from(args['cartItems'] as List<dynamic>),
+            totalQuantity: (args['totalQuantity'] as num).toDouble(),
+            totalPrice: (args['totalPrice'] as num).toDouble(),
           );
         },
       },

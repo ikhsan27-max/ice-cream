@@ -1,120 +1,165 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'SearchProductDelegate.dart';
+import 'Details.dart';
 
-class Menu extends StatelessWidget {
+class Menu extends StatefulWidget {
   const Menu({super.key});
 
   @override
+  _MenuState createState() => _MenuState();
+}
+
+class _MenuState extends State<Menu> {
+  List<Map<String, String>> flavors = [
+    {'name': 'Pistachio Chocolate Vanilla', 'image': 'assets/ice cream.png', 'price': 'Rp 20.000'},
+    {'name': 'Cherry Strawberry', 'image': 'assets/ice_cream_pink.png', 'price': 'Rp 20.000'},
+    {'name': 'Double Choc Hazelnut', 'image': 'assets/ice_cream_brown.png', 'price': 'Rp 20.000'},
+  ];
+
+  void navigateToDetails(String name, String image, String price) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Details(),
+        settings: RouteSettings(arguments: {'name': name, 'image': image, 'price': price}),
+      ),
+    );
+  }
+
+  void navigateToProductPage() {
+    showSearch(context: context, delegate: SearchProductDelegate());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<Map<String, String>> rides = [
-      {'name': 'ice cream', 'image': 'assets/ice cream.png'},
-      {'name': 'ice cream', 'image': 'assets/ice cream.png'},
-      {'name': 'ice cream', 'image': 'assets/ice cream.png'},
-      {'name': 'ice cream', 'image': 'assets/ice cream.png'},
-      {'name': 'ice cream', 'image': 'assets/ice cream.png'},
-      {'name': 'ice cream', 'image': 'assets/ice cream.png'},
-      {'name': 'ice cream', 'image': 'assets/ice cream.png'},
-      {'name': 'ice cream', 'image': 'assets/ice cream.png'},
-    ];
-
-    List<Map<String, dynamic>> menuItems = [
-      {'icon': Icons.home, 'label': "Home"},
-      {'icon': Icons.list, 'label': "Rides"},
-      {'icon': Icons.notifications, 'label': "Notifications"},
-      {'icon': Icons.person, 'label': "Profile"},
-    ];
-
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
-          "Select Your ice cream",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
+        title: Text(
+          "ice cream",
+          style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.person, color: Colors.black),
+          onPressed: () {},
+        ),
+        actions: [
+          IconButton(icon: const Icon(Icons.shopping_cart, color: Colors.black), onPressed: () {}),
+        ],
       ),
-      body: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Hi, Ikhsan👋",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GridView.builder(
-                physics: const ClampingScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
-                  childAspectRatio: 0.9,
-                ),
-                itemCount: rides.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed('/');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: Colors.white,
-                          width: index == 0 ? 3 : 1,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade200,
-                            blurRadius: 5,
-                            spreadRadius: 2,
-                          ),
-                        ],
-                        color: Colors.white,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        hintText: "mau nyari apa....",
+                        prefixIcon: const Icon(Icons.search),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+                        fillColor: Colors.grey.shade200,
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(rides[index]['image']!, height: 80),
-                          const SizedBox(height: 5),
-                          Text(
-                            rides[index]['name']!,
-                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      onTap: navigateToProductPage,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  IconButton(
+                    icon: const Icon(Icons.notifications, size: 28, color: Color.fromARGB(255, 243, 67, 126)),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  "assets/banner.jpeg",
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 150,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      height: 150,
+                      color: Colors.grey[300],
+                      child: const Center(child: Text("Image not found")),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text("Most Popular", style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold)),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: flavors.length,
+                itemBuilder: (context, index) {
+                  String name = flavors[index]['name']!;
+                  String price = flavors[index]['price']!;
+                  String image = flavors[index]['image']!;
+                  return GestureDetector(
+                    onTap: () => navigateToDetails(name, image, price),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Card(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                image,
+                                width: 60,
+                                height: 60,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    width: 60,
+                                    height: 60,
+                                    color: Colors.grey[300],
+                                    child: const Icon(Icons.image_not_supported),
+                                  );
+                                },
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      name,
+                                      style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold),
+                                    ),
+                                    const Text("Refreshing delicate taste and melt-in-your-mouth texture."),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                price,
+                                style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.pink),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 5),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pushNamed('/details');
-                            },
-                            child: CircleAvatar(
-                              radius: 20,
-                              backgroundColor: Colors.grey.shade200,
-                              child: const Icon(Icons.arrow_forward, color: Colors.black),
-                            ),
-                          )
-                        ],
+                        ),
                       ),
                     ),
                   );
                 },
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: menuItems.map((item) => BottomNavigationBarItem(
-          icon: Icon(item['icon']),
-          label: item['label'],
-        )).toList(),
-        type: BottomNavigationBarType.fixed,
-        unselectedItemColor: Colors.grey,
+        ),
       ),
     );
   }

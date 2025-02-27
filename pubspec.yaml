@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  intl: ^0.18.0  # Gunakan versi terbaru
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -63,6 +65,7 @@ flutter:
     - assets/ice cream.png
     - assets/ice_cream_pink.png
     - assets/ice_cream_brown.png
+    - assets/banner.jpeg
 
 
 
