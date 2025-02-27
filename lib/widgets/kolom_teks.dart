@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class KolomTeks extends StatelessWidget {
   const KolomTeks({
     super.key,
     required this.judul,
     required this.icon,
     required this.label,
+    required this.hidepass,
   });
 
   final String judul;
   final IconData icon;
   final String label;
+  final bool hidepass;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,7 @@ class KolomTeks extends StatelessWidget {
         ),
         SizedBox(height: 12),
         TextField(
+          obscureText: hidepass,
           textAlign: TextAlign.start,
           decoration: InputDecoration(
             floatingLabelStyle: TextStyle(color: Colors.pink),
