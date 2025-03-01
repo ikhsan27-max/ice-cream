@@ -13,18 +13,26 @@ void main() => runApp(
       "/": (context) => const Splash(),
       "/menu": (context) => const Menu(),
       "/details": (context) => const Details(),
-      "/summary": (context) {
-        final args =
-            ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-
-        return Summary(
-          cartItems: List<Map<String, dynamic>>.from(
-            args['cartItems'] as List<dynamic>,
-          ),
-          totalQuantity: (args['totalQuantity'] as num).toDouble(),
-          totalPrice: (args['totalPrice'] as num).toDouble(),
-        );
-      },
+      '/summary': (context) {
+            final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+            
+            if (args == null) {
+              // Handle case when no arguments are provided
+              return Summary(
+                cartItems: [],
+                totalQuantity: 0.0,
+                totalPrice: 0.0,
+              );
+            }
+            
+            return Summary(
+              cartItems: List<Map<String, dynamic>>.from(
+                args['cartItems'] as List<dynamic>? ?? [],
+              ),
+              totalQuantity: (args['totalQuantity'] as num?)?.toDouble() ?? 0.0,
+              totalPrice: (args['totalPrice'] as num?)?.toDouble() ?? 0.0,
+            );
+          },
       "/settings": (context) => const Settings(),
     },
   ),

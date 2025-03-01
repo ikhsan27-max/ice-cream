@@ -451,7 +451,7 @@ class _SummaryState extends State<Summary> {
                                   borderRadius: BorderRadius.circular(15),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.grey.withOpacity(0.1),
+                                      color: Colors.grey,
                                       spreadRadius: 1,
                                       blurRadius: 10,
                                       offset: const Offset(0, 3),
@@ -469,7 +469,7 @@ class _SummaryState extends State<Summary> {
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(12),
                                           border: Border.all(
-                                            color: Colors.pink.withOpacity(0.2),
+                                            color: Colors.pink,
                                             width: 2,
                                           ),
                                         ),
@@ -590,7 +590,7 @@ class _SummaryState extends State<Summary> {
                         const BorderRadius.vertical(top: Radius.circular(30)),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.pink.withOpacity(0.3),
+                        color: Colors.pink,
                         blurRadius: 15,
                         spreadRadius: 5,
                         offset: const Offset(0, -5),
@@ -607,7 +607,7 @@ class _SummaryState extends State<Summary> {
                           width: 60,
                           height: 5,
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.7),
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
@@ -638,7 +638,7 @@ class _SummaryState extends State<Summary> {
                           Container(
                             padding: const EdgeInsets.all(15),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.1),
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Column(
