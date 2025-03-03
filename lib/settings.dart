@@ -4,8 +4,15 @@ import 'package:giffy_dialog/giffy_dialog.dart';
 import 'widgets/kolom_teks.dart';
 import 'widgets/tombol.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
   const Settings({super.key});
+
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  bool isHidden = true;
 
   @override
   Widget build(BuildContext context) {
@@ -81,14 +88,14 @@ class Settings extends StatelessWidget {
                       judul: 'Username',
                       icon: Icons.person,
                       label: 'Ganti Username Kamu',
-                      hidepass: false,
+                      isHidden: false,
                     ),
                     SizedBox(height: 24),
                     KolomTeks(
                       judul: 'Email',
                       icon: Icons.email,
                       label: 'Ganti Email Kamu',
-                      hidepass: false,
+                      isHidden: false,
                     ),
                     SizedBox(height: 24),
 
@@ -96,7 +103,18 @@ class Settings extends StatelessWidget {
                       judul: 'Password',
                       icon: Icons.password,
                       label: 'Ganti Passsword Kamu',
-                      hidepass: true,
+                      isHidden: isHidden,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          if (isHidden == true) {
+                            isHidden = false;
+                          } else {
+                            isHidden = true;
+                          }
+                          setState(() {});
+                        },
+                        icon: Icon(Icons.remove_red_eye),
+                      ),
                     ),
                     SizedBox(height: 24),
 

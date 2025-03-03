@@ -7,13 +7,15 @@ class KolomTeks extends StatelessWidget {
     required this.judul,
     required this.icon,
     required this.label,
-    required this.hidepass,
+    this.suffixIcon,
+    required this.isHidden
   });
 
   final String judul;
   final IconData icon;
   final String label;
-  final bool hidepass;
+final bool isHidden;
+  final IconButton? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +29,12 @@ class KolomTeks extends StatelessWidget {
         ),
         SizedBox(height: 12),
         TextField(
-          obscureText: hidepass,
+          obscureText: isHidden,
           textAlign: TextAlign.start,
           decoration: InputDecoration(
             floatingLabelStyle: TextStyle(color: Colors.pink),
             fillColor: Colors.pink,
-            prefixIcon: Icon(icon),
+            suffixIcon: suffixIcon,
             alignLabelWithHint: true,
             label: Text(label),
             focusedBorder: OutlineInputBorder(
