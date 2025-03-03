@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:taxi_booking/menu.dart';
+import 'package:taxi_booking/main_pages/menu.dart';
+import 'package:taxi_booking/main_pages/main_page.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -19,7 +20,7 @@ class _SplashState extends State<Splash> {
     Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Menu()),
+        MaterialPageRoute(builder: (context) => MainPage()),
       );
     });
   }

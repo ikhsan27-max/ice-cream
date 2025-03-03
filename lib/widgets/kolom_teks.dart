@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:taxi_booking/widgets/color.dart';
 
 class KolomTeks extends StatelessWidget {
   const KolomTeks({
@@ -8,13 +9,13 @@ class KolomTeks extends StatelessWidget {
     required this.icon,
     required this.label,
     this.suffixIcon,
-    required this.isHidden
+    required this.isHidden,
   });
 
   final String judul;
   final IconData icon;
   final String label;
-final bool isHidden;
+  final bool isHidden;
   final IconButton? suffixIcon;
 
   @override
@@ -32,13 +33,13 @@ final bool isHidden;
           obscureText: isHidden,
           textAlign: TextAlign.start,
           decoration: InputDecoration(
-            floatingLabelStyle: TextStyle(color: Colors.pink),
-            fillColor: Colors.pink,
+            floatingLabelStyle: TextStyle(color: MyColor.primary),
+            fillColor: MyColor.primary,
             suffixIcon: suffixIcon,
             alignLabelWithHint: true,
             label: Text(label),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.pink),
+              borderSide: BorderSide(color: MyColor.primary),
             ),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
           ),

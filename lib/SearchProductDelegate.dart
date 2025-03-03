@@ -3,11 +3,23 @@ import 'package:flutter/material.dart';
 class SearchProductDelegate extends SearchDelegate<String> {
   // Data produk dengan format yang lebih konsisten
   final List<Map<String, String>> products = [
-    {'name': 'Pistachio Chocolate Vanilla', 'image': 'assets/ice cream.png', 'price': 'Rp 20.000'},
-    {'name': 'Cherry Strawberry', 'image': 'assets/ice_cream_pink.png', 'price': 'Rp 20.000'},
-    {'name': 'Double Choc Hazelnut', 'image': 'assets/ice_cream_brown.png', 'price': 'Rp 23.000'},
+    {
+      'name': 'Pistachio Chocolate Vanilla',
+      'image': 'assets/ice cream.png',
+      'price': 'Rp 20.000',
+    },
+    {
+      'name': 'Cherry Strawberry',
+      'image': 'assets/ice_cream_pink.png',
+      'price': 'Rp 20.000',
+    },
+    {
+      'name': 'Double Choc Hazelnut',
+      'image': 'assets/ice_cream_brown.png',
+      'price': 'Rp 23.000',
+    },
   ];
-  
+
   // Mengubah tema pencarian
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -68,9 +80,10 @@ class SearchProductDelegate extends SearchDelegate<String> {
   }
 
   Widget _buildProductList(BuildContext context) {
-    final filteredProducts = products.where((product) {
-      return product['name']!.toLowerCase().contains(query.toLowerCase());
-    }).toList();
+    final filteredProducts =
+        products.where((product) {
+          return product['name']!.toLowerCase().contains(query.toLowerCase());
+        }).toList();
 
     if (filteredProducts.isEmpty) {
       return Center(
@@ -81,18 +94,12 @@ class SearchProductDelegate extends SearchDelegate<String> {
             const SizedBox(height: 16),
             const Text(
               'Es krim tidak ditemukan',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
               'Coba kata kunci lain',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-              ),
+              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
           ],
         ),
@@ -111,7 +118,7 @@ class SearchProductDelegate extends SearchDelegate<String> {
         itemCount: filteredProducts.length,
         itemBuilder: (context, index) {
           final product = filteredProducts[index];
-          
+
           return GestureDetector(
             onTap: () {
               Navigator.pushNamed(
@@ -134,7 +141,9 @@ class SearchProductDelegate extends SearchDelegate<String> {
                 children: [
                   Expanded(
                     child: ClipRRect(
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(16),
+                      ),
                       child: Container(
                         color: Colors.pink[50],
                         width: double.infinity,

@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'dart:ui';
 
+import 'package:taxi_booking/widgets/color.dart';
+
 class Details extends StatefulWidget {
   const Details({super.key});
 
@@ -18,33 +20,35 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
   String imageAsset = 'assets/ice_cream.png';
   bool isFavorite = false;
   bool showNutrition = false;
-  
+
   // Animation controller
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
-  
+
   @override
   void initState() {
     super.initState();
-    
+
     // Initialize animations
     _controller = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
-    
-    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack)
-    );
-    
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeIn)
-    );
-    
+
+    _scaleAnimation = Tween<double>(
+      begin: 0.8,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
+
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
+
     _controller.forward();
   }
-  
+
   @override
   void dispose() {
     _controller.dispose();
@@ -54,13 +58,15 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
     if (args != null) {
       setState(() {
         productName = args['name'] ?? productName;
         imageAsset = args['image'] ?? imageAsset;
-        pricePerItem = double.tryParse(args['price'].toString()) ?? pricePerItem;
+        pricePerItem =
+            double.tryParse(args['price'].toString()) ?? pricePerItem;
         totalPrice = pricePerItem * quantity;
       });
     }
@@ -81,19 +87,19 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
     setState(() {
       isFavorite = !isFavorite;
     });
-    
+
     // Show a snackbar
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(isFavorite 
-          ? 'Added $productName to favorites!' 
-          : 'Removed $productName from favorites'),
+        content: Text(
+          isFavorite
+              ? 'Added $productName to favorites!'
+              : 'Removed $productName from favorites',
+        ),
         backgroundColor: isFavorite ? Colors.pink[300] : Colors.grey[600],
         duration: const Duration(seconds: 1),
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
@@ -102,7 +108,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
     // Add animation for button press
     _controller.reset();
     _controller.forward();
-    
+
     // Show a success message
     showDialog(
       context: context,
@@ -113,9 +119,12 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
           ),
           title: Row(
             children: [
-              const Icon(Icons.check_circle, color: Colors.pink),
+              const Icon(Icons.check_circle, color: MyColor.primary),
               const SizedBox(width: 10),
-              Text("Added to Cart", style: GoogleFonts.lora(fontWeight: FontWeight.bold)),
+              Text(
+                "Added to Cart",
+                style: GoogleFonts.lora(fontWeight: FontWeight.bold),
+              ),
             ],
           ),
           content: Column(
@@ -123,7 +132,10 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("$quantity x $productName", style: GoogleFonts.lora()),
-              Text("Total: ${formatCurrency(totalPrice)}", style: GoogleFonts.lora(fontWeight: FontWeight.bold)),
+              Text(
+                "Total: ${formatCurrency(totalPrice)}",
+                style: GoogleFonts.lora(fontWeight: FontWeight.bold),
+              ),
             ],
           ),
           actions: [
@@ -139,9 +151,9 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                       {
                         'name': productName,
                         'image': imageAsset,
-                        'quantity': quantity, 
+                        'quantity': quantity,
                         'price': pricePerItem,
-                      }
+                      },
                     ],
                     'totalQuantity': quantity,
                     'totalPrice': totalPrice,
@@ -158,7 +170,10 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: const Text("Continue Shopping", style: TextStyle(color: Colors.white)),
+              child: const Text(
+                "Continue Shopping",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         );
@@ -167,7 +182,11 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
   }
 
   String formatCurrency(double value) {
-    return NumberFormat.currency(locale: 'id', symbol: 'Rp ', decimalDigits: 0).format(value);
+    return NumberFormat.currency(
+      locale: 'id',
+      symbol: 'Rp ',
+      decimalDigits: 0,
+    ).format(value);
   }
 
   @override
@@ -223,16 +242,14 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
               ),
             ),
           ),
-          
+
           // Main content
           SingleChildScrollView(
             child: Column(
               children: [
                 // Empty space to account for the background image
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.35,
-                ),
-                
+                SizedBox(height: MediaQuery.of(context).size.height * 0.35),
+
                 // Content card
                 Container(
                   decoration: BoxDecoration(
@@ -264,25 +281,26 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                           child: Text(
                             productName,
                             style: GoogleFonts.poppins(
-                              fontSize: 26, 
+                              fontSize: 26,
                               fontWeight: FontWeight.bold,
                               color: Colors.black87,
                             ),
                           ),
                         ),
                       ),
-                      
+
                       const SizedBox(height: 5),
-                      
+
                       // Rating bar
                       Row(
                         children: [
-                          ...List.generate(5, (index) => 
-                            Icon(
-                              index < 4 ? Icons.star : Icons.star_half, 
-                              color: Colors.amber, 
+                          ...List.generate(
+                            5,
+                            (index) => Icon(
+                              index < 4 ? Icons.star : Icons.star_half,
+                              color: Colors.amber,
                               size: 20,
-                            )
+                            ),
                           ),
                           const SizedBox(width: 5),
                           Text(
@@ -303,9 +321,9 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                           ),
                         ],
                       ),
-                      
+
                       const SizedBox(height: 20),
-                      
+
                       // Description
                       Text(
                         "Description",
@@ -314,9 +332,9 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      
+
                       const SizedBox(height: 5),
-                      
+
                       Text(
                         "Premium ice cream with a perfect blend of flavors. Thanks to its refreshing delicate taste and melt-in-your-mouth texture, it will appeal to big and small gourmets alike. Made with natural ingredients and no artificial preservatives.",
                         style: GoogleFonts.poppins(
@@ -325,9 +343,9 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                           color: Colors.black,
                         ),
                       ),
-                      
+
                       const SizedBox(height: 15),
-                      
+
                       // Nutrition facts expandable section
                       InkWell(
                         onTap: () {
@@ -336,7 +354,10 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                           });
                         },
                         child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 15,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.grey[100],
                             borderRadius: BorderRadius.circular(10),
@@ -351,16 +372,16 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                                 ),
                               ),
                               Icon(
-                                showNutrition 
-                                  ? Icons.keyboard_arrow_up 
-                                  : Icons.keyboard_arrow_down,
+                                showNutrition
+                                    ? Icons.keyboard_arrow_up
+                                    : Icons.keyboard_arrow_down,
                                 color: Colors.black,
                               ),
                             ],
                           ),
                         ),
                       ),
-                      
+
                       // Expandable nutrition content
                       AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
@@ -378,9 +399,9 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      
+
                       const SizedBox(height: 25),
-                      
+
                       // Price section with quantity controls
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -405,7 +426,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                               ),
                             ],
                           ),
-                          
+
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.grey[100],
@@ -419,7 +440,9 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                                   quantity <= 1,
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                  ),
                                   child: Text(
                                     "$quantity",
                                     style: GoogleFonts.poppins(
@@ -438,9 +461,9 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                           ),
                         ],
                       ),
-                      
+
                       const SizedBox(height: 25),
-                      
+
                       // Total price and add to cart button
                       Row(
                         children: [
@@ -476,7 +499,9 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.pinkAccent,
                                   foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(vertical: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 12,
+                                  ),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15),
                                   ),
@@ -495,7 +520,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                           ),
                         ],
                       ),
-                      
+
                       const SizedBox(height: 20),
                     ],
                   ),
@@ -503,7 +528,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
               ],
             ),
           ),
-          
+
           // Floating ice cream image
           Positioned(
             top: MediaQuery.of(context).size.height * 0.25,
@@ -539,7 +564,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
       ),
     );
   }
-  
+
   Widget _buildNutritionItem(String name, String value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
@@ -548,10 +573,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
         children: [
           Text(
             name,
-            style: GoogleFonts.poppins(
-              fontSize: 13,
-              color: Colors.grey[700],
-            ),
+            style: GoogleFonts.poppins(fontSize: 13, color: Colors.grey[700]),
           ),
           Text(
             value,
@@ -564,8 +586,12 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
       ),
     );
   }
-  
-  Widget _buildQuantityButton(IconData icon, VoidCallback onPressed, bool disabled) {
+
+  Widget _buildQuantityButton(
+    IconData icon,
+    VoidCallback onPressed,
+    bool disabled,
+  ) {
     return GestureDetector(
       onTap: disabled ? null : onPressed,
       child: Container(
